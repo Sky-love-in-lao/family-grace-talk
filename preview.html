@@ -488,13 +488,9 @@
       const savedProfile = localStorage.getItem('familyProfileName');
       const savedEmoji = localStorage.getItem('familyProfileEmoji');
       if (savedProfile && savedEmoji) {
-        // 수요일, 금요일은 가정예배 화면으로 랜딩, 그 외는 홈(말씀) 화면으로 랜딩
-        if (todayDay === '수요일' || todayDay === '금요일') {
-          goToPage('page-worship');
-        } else {
-          goToPage('page-home');
-      if(typeof selectPassage === 'function') selectPassage(name);
-        }
+        // 항상 홈(우리가족 성경읽기) 화면으로 랜딩
+        goToPage('page-home');
+        if(typeof selectPassage === 'function') selectPassage(savedProfile);
       } else {
         goToPage('page-profile');
       }
