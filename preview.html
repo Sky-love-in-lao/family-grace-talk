@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>우리가족 은혜톡 미리보기</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-beige': '#fdfbf7',
+            'brand-mint': '#e8f3ee',
+            'brand-brown': '#8c7b6d',
+            'brand-peach': '#fdeee9',
+            'brand-blue': '#eef2fd',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    body { background-color: #f3f4f6; font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; }
+    .page { display: none !important; animation: fadeIn 0.3s ease-in-out; }
+    .page.active { display: block !important; }
+    #page-profile.active { display: flex !important; }
+    .nav-item { cursor: pointer; transition: all 0.2s; }
+    .nav-item.active { color: #8c7b6d; transform: translateY(-2px); }
+    .nav-item.inactive { color: #d1d5db; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    .scale-in-center { animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+    
+    /* 둥근 스크롤바 숨기기 */
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="text-gray-800 antialiased h-screen flex flex-col justify-center items-center">
+
+  <div id="app-container" class="relative w-full max-w-md h-[800px] max-h-screen shadow-2xl overflow-hidden flex flex-col border border-gray-100 sm:rounded-[2.5rem] bg-[#fff5ee] transition-colors duration-500">
+    
+    <!-- 공통 상단 헤더 (프로필 변경 버튼 등) -->
+    <header id="top-header" class="w-full px-6 pt-12 pb-4 flex justify-between items-center z-10 bg-transparent" style="display: none;">
+      <h1 id="header-title" class="text-xl font-bold text-brand-brown">오늘의 말씀</h1>
+      <button onclick="changeProfile()" class="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-gray-700 shadow-sm border border-gray-100 flex items-center gap-1.5 hover:bg-white transition-colors">
+        <div id="current-profile-img" class="w-5 h-5 rounded-full border border-gray-100 bg-[url('family.jpg')] bg-[length:400%_auto] bg-white"></div>
+        프로필 변경
+      </button>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="flex-1 overflow-y-auto pb-24 relative">
+      
+      <!-- 1. 프로필 선택 화면 -->
+      <div id="page-profile" class="page active h-full flex flex-col items-center justify-center p-6 bg-transparent">
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-extrabold text-brand-brown mb-2 tracking-tight">우리가족 은혜톡</h1>
+          <p class="text-gray-500 font-medium">말씀과 기도로 하나되는 우리 가족</p>
+        </div>
+        <h2 class="text-lg font-bold text-gray-700 mb-6">누구이신가요?</h2>
+        <div class="grid grid-cols-2 gap-5 w-full max-w-[280px]">
+          <div onclick="selectProfile('아빠', '👨🏻')" class="cursor-pointer group flex flex-col items-center justify-center aspect-square rounded-3xl bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 rounded-full mb-3 border-2 border-white shadow-sm group-hover:scale-110 transition-transform bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:31%_15%]">
+            </div>
+            <span class="text-lg font-bold text-gray-700">아빠</span>
+          </div>
+          <div onclick="selectProfile('엄마', '👩🏻')" class="cursor-pointer group flex flex-col items-center justify-center aspect-square rounded-3xl bg-pink-50 border border-pink-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 rounded-full mb-3 border-2 border-white shadow-sm group-hover:scale-110 transition-transform bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:74%_24%]">
+            </div>
+            <span class="text-lg font-bold text-gray-700">엄마</span>
+          </div>
+          <div onclick="selectProfile('요한', '👦🏻')" class="cursor-pointer group flex flex-col items-center justify-center aspect-square rounded-3xl bg-yellow-50 border border-yellow-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 rounded-full mb-3 border-2 border-white shadow-sm group-hover:scale-110 transition-transform bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:30%_50%]">
+            </div>
+            <span class="text-lg font-bold text-gray-700">요한</span>
+          </div>
+          <div onclick="selectProfile('노아', '👶🏻')" class="cursor-pointer group flex flex-col items-center justify-center aspect-square rounded-3xl bg-green-50 border border-green-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 rounded-full mb-3 border-2 border-white shadow-sm group-hover:scale-110 transition-transform bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:71%_52%]">
+            </div>
+            <span class="text-lg font-bold text-gray-700">노아</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 홈 화면 (오늘의 말씀) -->
+      <div id="page-home" class="page px-6 pb-6 pt-2">
+        <p id="today-date" class="text-sm font-semibold text-brand-brown/70 mb-4">... (맥체인 성경읽기)</p>
+        
+        <!-- 가족 달성도 -->
+        <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 mb-6">
+          <h3 class="font-bold text-gray-800 mb-4 flex justify-between items-end">
+            <span>우리가족 오늘 읽기</span>
+            <span id="progress-percent" class="text-xs font-bold text-brand-peach bg-brand-peach/10 px-2 py-1 rounded-full transition-all">50% 완료</span>
+          </h3>
+          <div class="flex justify-between items-center px-1">
+            <!-- 아빠 -->
+            <div id="progress-아빠" class="flex flex-col items-center opacity-40 grayscale transition-all duration-500">
+              <div id="progress-check-아빠" class="hidden absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 items-center justify-center border-2 border-white z-10 text-[10px] scale-in-center">✓</div>
+              <div id="progress-img-아빠" class="w-12 h-12 rounded-full mb-1 border-2 border-gray-200 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:31%_15%] transition-all duration-500 relative"></div>
+              <span id="progress-text-아빠" class="text-[11px] font-bold text-gray-500 transition-all duration-500">아빠</span>
+            </div>
+            <!-- 엄마 -->
+            <div id="progress-엄마" class="flex flex-col items-center transition-all duration-500 relative">
+              <div id="progress-check-엄마" class="absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-white z-10 text-[10px]">✓</div>
+              <div id="progress-img-엄마" class="w-12 h-12 rounded-full mb-1 border-2 border-green-400 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:74%_24%] shadow-[0_0_10px_rgba(74,222,128,0.4)] transition-all duration-500"></div>
+              <span id="progress-text-엄마" class="text-[11px] font-bold text-gray-800 transition-all duration-500">엄마</span>
+            </div>
+            <!-- 요한 -->
+            <div id="progress-요한" class="flex flex-col items-center transition-all duration-500 relative">
+              <div id="progress-check-요한" class="absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-white z-10 text-[10px]">✓</div>
+              <div id="progress-img-요한" class="w-12 h-12 rounded-full mb-1 border-2 border-green-400 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:30%_50%] shadow-[0_0_10px_rgba(74,222,128,0.4)] transition-all duration-500"></div>
+              <span id="progress-text-요한" class="text-[11px] font-bold text-gray-800 transition-all duration-500">요한</span>
+            </div>
+            <!-- 노아 -->
+            <div id="progress-노아" class="flex flex-col items-center opacity-40 grayscale transition-all duration-500">
+              <div id="progress-check-노아" class="hidden absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 items-center justify-center border-2 border-white z-10 text-[10px] scale-in-center">✓</div>
+              <div id="progress-img-노아" class="w-12 h-12 rounded-full mb-1 border-2 border-gray-200 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:71%_52%] transition-all duration-500 relative"></div>
+              <span id="progress-text-노아" class="text-[11px] font-bold text-gray-500 transition-all duration-500">노아</span>
+            </div>
+          </div>
+        </div>
+        
+        <div id="adult-reading-view" class="hidden">
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">가족</span>
+              <span class="font-bold text-gray-800 text-sm">사무엘하 17장</span>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">가족</span>
+              <span class="font-bold text-gray-800 text-sm">마태복음 14장</span>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">개인</span>
+              <span class="font-bold text-gray-800 text-sm">에스겔 24장</span>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">개인</span>
+              <span class="font-bold text-gray-800 text-sm">시편 72장</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl p-7 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-50 mb-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-brand-peach rounded-full -mr-10 -mt-10 opacity-50"></div>
+            <h2 class="text-xl font-bold text-brand-brown mb-5 relative z-10">📖 사무엘하 17장</h2>
+            <div class="text-gray-800 leading-relaxed text-lg font-medium relative z-10 space-y-4 break-keep">
+              <p><sup class="text-xs text-brand-brown/70 mr-1">1</sup>아히도벨이 또 압살롬에게 이르되 이제 내가 사람 만 이천 명을 택하게 하소서 오늘 밤에 내가 일어나서 다윗의 뒤를 추적하여</p>
+              <p><sup class="text-xs text-brand-brown/70 mr-1">2</sup>그가 곤하고 힘이 빠졌을 때에 기습하여 그를 무섭게 하면 그와 함께 있는 모든 백성이 도망하리니 내가 다윗 왕만 쳐죽이고</p>
+              <div class="text-center pt-4 pb-2">
+                <p class="text-sm text-gray-400 font-normal">... (이후 본문 계속) ...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 아이들 읽기 안내 블록 -->
+          <div class="bg-orange-50 border border-orange-100 rounded-3xl p-6 mb-6">
+            <h3 class="font-bold text-orange-800 mb-2 flex items-center gap-2">
+              <span>🎈</span> 오늘 아이들이 읽는 말씀
+            </h3>
+            <p class="text-sm font-bold text-gray-800 mb-2">🍞 오병이어의 기적 (마태복음 14:17-21)</p>
+            <p class="text-sm text-gray-600 break-keep leading-relaxed">
+              부모님이 오늘 통독하시는 <span class="font-bold">마태복음 14장</span> 내용 중, 요한이와 노아가 이해하기 쉬운 '오병이어 기적' 이야기를 아이들이 읽고 있어요. 오늘 저녁 나눔방에서 이 이야기를 함께 나눠보세요!
+            </p>
+          </div>
+        </div>
+
+        <div id="kid-reading-view" class="hidden">
+          <div class="bg-white rounded-3xl p-7 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-yellow-100 mb-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-100 rounded-full -mr-10 -mt-10 opacity-50"></div>
+            <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full mb-4 relative z-10">오늘의 성경 스토리</span>
+            <h2 class="text-2xl font-extrabold text-brand-brown mb-2 relative z-10 break-keep">🍞 오병이어의 기적</h2>
+            <p class="text-sm text-gray-500 font-medium mb-6 relative z-10">마태복음 14장 17~21절</p>
+            
+            <div class="text-gray-800 leading-relaxed text-lg font-medium relative z-10 space-y-5 break-keep bg-yellow-50/50 p-5 rounded-2xl">
+              <p><sup class="text-xs text-brand-brown/70 mr-1">17</sup>제자들이 이르되 여기 우리에게 있는 것은 떡 다섯 개와 물고기 두 마리뿐이니이다</p>
+              <p><sup class="text-xs text-brand-brown/70 mr-1">18</sup>이르시되 그것을 내게 가져오라 하시고</p>
+              <p><sup class="text-xs text-brand-brown/70 mr-1">19</sup>무리를 명하여 잔디 위에 앉히시고 떡 다섯 개와 물고기 두 마리를 가지사 하늘을 우러러 축사하시고 떡을 떼어 제자들에게 주시매 제자들이 무리에게 주니</p>
+              <p><sup class="text-xs text-brand-brown/70 mr-1">20</sup>다 배불리 먹고 남은 조각을 열두 바구니에 차게 거두었으며</p>
+              <p><sup class="text-xs text-brand-brown/70 mr-1">21</sup>먹은 사람은 여자와 어린이 외에 오천 명이나 되었더라</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 읽기 완료 버튼 -->
+        <div id="finish-btn-container" class="mt-2 relative z-10">
+          <button 
+            onclick="markAsRead()"
+            class="w-full bg-brand-brown text-white font-bold text-lg py-4 rounded-2xl shadow-lg hover:bg-brand-brown/90 transition-all active:scale-95 flex items-center justify-center gap-2"
+          >
+            <span>🙌</span> 오늘 말씀 다 읽었어요!
+          </button>
+        </div>
+      </div>
+
+      <!-- 2-1. 말씀해설 화면 -->
+      <div id="page-commentary" class="page px-6 pb-6 pt-2 space-y-6">
+        <div class="bg-brand-mint/30 rounded-3xl p-7 shadow-sm border border-brand-mint/50">
+          <h3 class="font-bold text-teal-800 mb-4 flex items-center gap-2 text-lg">
+            <span>💡</span> 오늘의 말씀 해설
+          </h3>
+          <div class="text-teal-900/90 text-base leading-relaxed break-keep space-y-4">
+            <p>
+              오늘 본문에서는 한 어린아이가 가져온 작은 도시락(떡 다섯 개와 물고기 두 마리)을 예수님께서 축복하시고 오천 명을 먹이신 놀라운 기적이 나와요.
+            </p>
+            <p>
+              우리가 가진 것이 비록 작고 보잘것없어 보일지라도, 예수님의 손에 들려질 때 수많은 사람을 살리고 풍성하게 하는 놀라운 축복의 통로가 된답니다!
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-orange-50 rounded-3xl p-7 shadow-sm border border-orange-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-orange-200 rounded-full -mr-10 -mt-10 opacity-30"></div>
+          <h3 class="font-bold text-orange-800 mb-4 flex items-center gap-2 text-lg relative z-10">
+            <span>🙏</span> 함께 기도해요
+          </h3>
+          <p class="text-orange-900/90 text-base leading-relaxed break-keep relative z-10">
+            "하나님, 오늘 오병이어를 드린 소년처럼 저희 가족도 가진 것을 기쁘게 나누는 사람이 되게 해주세요. 우리 가족의 작은 섬김이 예수님의 손을 거쳐 이웃에게 큰 사랑으로 전해지게 하옵소서. 예수님의 이름으로 기도합니다. 아멘."
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. 가족 나눔방 화면 -->
+      <div id="page-sharing" class="page px-6 pb-6 pt-2">
+        <div id="sharing-list" class="space-y-4 pb-20">
+          <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 relative">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-xl bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:74%_24%]"></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-sm">엄마</h4>
+                <p class="text-xs text-gray-400">오전 7:30</p>
+              </div>
+            </div>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              하나님이 빛을 만드신 것처럼, 우리 가족도 오늘 하루 서로에게 따뜻한 빛이 되었으면 좋겠어! 사랑해 우리 아들들 ❤️
+            </p>
+          </div>
+        </div>
+        
+        <button onclick="openSharingModal()" class="fixed bottom-24 right-6 w-14 h-14 bg-brand-brown text-white rounded-full shadow-lg flex items-center justify-center hover:bg-brand-brown/90 transition-transform active:scale-95 z-30">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+
+        <!-- 나눔 작성 모달 -->
+        <div id="sharing-modal" class="hidden fixed inset-0 bg-black/40 z-50 flex items-end sm:items-center justify-center p-4">
+          <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl scale-in-center">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-bold text-lg text-gray-800">새 나눔 작성</h3>
+              <button onclick="closeSharingModal()" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+            <textarea 
+              id="sharing-input"
+              class="w-full bg-gray-50 border border-gray-100 rounded-2xl p-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-peach h-32 resize-none mb-4"
+              placeholder="오늘 말씀에서 은혜받은 내용이나 가족에게 하고 싶은 말을 적어보세요..."
+            ></textarea>
+            <button 
+              onclick="submitSharingMessage()"
+              class="w-full bg-brand-brown text-white font-bold py-3 rounded-2xl hover:bg-brand-brown/90 transition-colors"
+            >
+              나눔 등록하기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 가정예배 화면 -->
+      <div id="page-worship" class="page px-6 pb-6 pt-2">
+        <div class="bg-brand-brown text-white rounded-3xl p-7 shadow-lg relative overflow-hidden mb-8">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
+          <h2 class="text-2xl font-bold mb-2 relative z-10"><span id="worship-day">수요일</span> 가정예배</h2>
+          <p class="text-brand-brown/40 text-white/80 text-sm relative z-10">오후 8시 00분 시작</p>
+        </div>
+
+        <div class="space-y-5">
+          <!-- 1. 신앙고백 -->
+          <div onclick="toggleSection('creed')" class="bg-white rounded-3xl p-6 shadow-sm border-t-4 border-brand-brown relative overflow-hidden cursor-pointer transition-all active:scale-[0.98]">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5">⛪️</div>
+            <div class="flex justify-between items-center mb-2">
+              <h2 class="font-extrabold text-brand-brown text-lg">1. 신앙고백</h2>
+              <span id="icon-creed" class="text-brand-brown/50 text-sm">▼</span>
+            </div>
+            <p class="text-gray-600 font-medium break-keep">사도신경으로 우리의 신앙을 고백합니다.</p>
+            
+            <div id="content-creed" class="hidden mt-4 pt-4 border-t border-gray-100 text-gray-700 text-sm leading-relaxed space-y-2 break-keep bg-gray-50 p-4 rounded-xl">
+              <p>전능하사 천지를 만드신 하나님 아버지를 내가 믿사오며,</p>
+              <p>그 외아들 우리 주 예수 그리스도를 믿사오니,</p>
+              <p>이는 성령으로 잉태하사 동정녀 마리아에게 나시고,</p>
+              <p>본디오 빌라도에게 고난을 받으사 십자가에 못 박혀 죽으시고,</p>
+              <p>장사한 지 사흘 만에 죽은 자 가운데서 다시 살아나시며,</p>
+              <p>하늘에 오르사 전능하신 하나님 우편에 앉아 계시다가,</p>
+              <p>저리로서 산 자와 죽은 자를 심판하러 오시리라.</p>
+              <p>성령을 믿사오며, 거룩한 공회와, 성도가 서로 교통하는 것과,</p>
+              <p>죄를 사하여 주시는 것과, 몸이 다시 사는 것과,</p>
+              <p>영원히 사는 것을 믿사옵나이다. 아멘.</p>
+            </div>
+          </div>
+          
+          <!-- 2. 찬양 -->
+          <div class="bg-white rounded-3xl p-6 shadow-sm border-t-4 border-teal-500 relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5">🎵</div>
+            <h2 class="font-extrabold text-teal-800 mb-4 text-lg">2. 찬양</h2>
+            <ul class="space-y-3">
+              <li>
+                <div onclick="toggleSection('song1')" class="flex justify-between items-center bg-teal-50/50 p-3 rounded-xl cursor-pointer hover:bg-teal-50 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <span class="bg-teal-100 text-teal-700 px-2 py-1 rounded-lg text-xs font-bold">곡1</span> 
+                    <span class="text-gray-700 font-bold text-sm">내 안에 부어주소서</span>
+                  </div>
+                  <span id="icon-song1" class="text-teal-600/50 text-xs">악보/듣기 ▼</span>
+                </div>
+                <div id="content-song1" class="hidden mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
+                  <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center relative overflow-hidden">
+                    <span class="text-gray-500 font-bold z-10 flex items-center gap-2">▶️ YouTube 영상 재생</span>
+                    <div class="absolute inset-0 bg-black/5"></div>
+                  </div>
+                  <div class="h-32 bg-white border border-gray-200 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400 text-sm">🎼 악보 이미지 공간</span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div onclick="toggleSection('song2')" class="flex justify-between items-center bg-teal-50/50 p-3 rounded-xl cursor-pointer hover:bg-teal-50 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <span class="bg-teal-100 text-teal-700 px-2 py-1 rounded-lg text-xs font-bold">곡2</span> 
+                    <span class="text-gray-700 font-bold text-sm">예수님이 좋은걸</span>
+                  </div>
+                  <span id="icon-song2" class="text-teal-600/50 text-xs">악보/듣기 ▼</span>
+                </div>
+                <div id="content-song2" class="hidden mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
+                  <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center relative overflow-hidden">
+                    <span class="text-gray-500 font-bold z-10 flex items-center gap-2">▶️ YouTube 영상 재생</span>
+                    <div class="absolute inset-0 bg-black/5"></div>
+                  </div>
+                  <div class="h-32 bg-white border border-gray-200 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400 text-sm">🎼 악보 이미지 공간</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- 3. 오늘의 말씀 -->
+          <div class="bg-white rounded-3xl p-6 shadow-sm border-t-4 border-blue-400 relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5">📖</div>
+            <h2 class="font-extrabold text-blue-800 mb-2 text-lg">3. 오늘의 말씀</h2>
+            <p class="text-blue-600 font-bold mb-3">마태복음 14장 17~21절</p>
+            <div class="text-gray-700 bg-blue-50/50 p-4 rounded-2xl leading-relaxed break-keep space-y-2 text-sm">
+              <p><sup class="text-xs text-blue-400 mr-1">17</sup>제자들이 이르되 여기 우리에게 있는 것은 떡 다섯 개와 물고기 두 마리뿐이니이다</p>
+              <p><sup class="text-xs text-blue-400 mr-1">18</sup>이르시되 그것을 내게 가져오라 하시고</p>
+              <p><sup class="text-xs text-blue-400 mr-1">19</sup>무리를 명하여 잔디 위에 앉히시고 떡 다섯 개와 물고기 두 마리를 가지사 하늘을 우러러 축사하시고 떡을 떼어 제자들에게 주시매 제자들이 무리에게 주니</p>
+              <p><sup class="text-xs text-blue-400 mr-1">20</sup>다 배불리 먹고 남은 조각을 열두 바구니에 차게 거두었으며</p>
+              <p><sup class="text-xs text-blue-400 mr-1">21</sup>먹은 사람은 여자와 어린이 외에 오천 명이나 되었더라</p>
+            </div>
+          </div>
+
+          <!-- 4. 설교 (순서와 제목은 모두에게, 내용은 아빠에게만 보임) -->
+          <div class="bg-orange-50 rounded-3xl p-6 shadow-sm border-t-4 border-orange-400 relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">👨‍🏫</div>
+            <h2 class="font-extrabold text-orange-800 mb-2 text-lg">4. 아빠의 말씀 나누기</h2>
+            <p class="text-orange-600 font-bold text-sm">제목: 작은 것도 나누면 기적이 됩니다</p>
+            
+            <div id="dad-sermon-content" class="mt-3 text-gray-700 bg-white/60 p-4 rounded-2xl leading-relaxed break-keep space-y-4 text-sm hidden">
+              <p>요한아, 노아야, 오늘 우리가 읽은 말씀에 누가 나왔지? 맞아, 예수님을 따라다니던 수많은 사람들이 배가 고팠을 때, 한 꼬마 친구가 짠~ 하고 나타났어! 그 아이의 도시락에는 뭐가 들어있었을까? 그래, 보리떡 다섯 개와 물고기 두 마리뿐이었지.</p>
+              <p>이 도시락은 꼬마 친구 혼자 먹기엔 딱 맞았겠지만, 그곳에 모인 엄청나게 많은 사람들을 먹이기엔 너무나도 부족했어요. 하지만 이 친구는 자기가 먹을 것을 아끼지 않고 예수님께 기쁜 마음으로 드렸어.</p>
+              <p>그랬더니 어떤 일이 일어났을까? 예수님이 그 작은 도시락을 들고 하나님께 감사 기도를 드리자, 무려 5천 명이 넘는 사람들이 다 배불리 먹고도 12바구니나 남는 엄청난 기적이 일어났단다!</p>
+              <p>우리도 이 꼬마 친구처럼 할 수 있어. '내 장난감인데...', '내 간식인데...' 하고 나만 생각하기보다, 내가 가진 것을 예수님의 사랑으로 동생에게, 형에게, 엄마 아빠에게 기쁘게 나누어줄 때 하나님은 너무너무 기뻐하셔.</p>
+              <p>우리가 나눈 그 작은 사랑을 통해 우리 가정에 더 큰 기쁨과 웃음이 넘치게 만들어 주신단다. 이번 한 주 동안 요한이와 노아도 나의 작은 것을 기쁘게 나누는 멋진 기적의 주인공들이 되기를 바라!</p>
+              
+              <div class="mt-4 pt-4 border-t border-orange-200">
+                <p class="font-bold text-orange-900">✨ 가족 나눔 질문:</p>
+                <ul class="list-disc pl-5 space-y-1 text-orange-800 mt-2">
+                  <li>내가 가족을 위해 양보하거나 기쁘게 나눌 수 있는 나의 '오병이어'는 무엇이 있을까?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 5. 합심기도 -->
+          <div class="bg-white rounded-3xl p-6 shadow-sm border-t-4 border-rose-400 relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5">💖</div>
+            <h2 class="font-extrabold text-rose-800 mb-3 text-lg"><span id="joint-prayer-number">5.</span> 합심기도</h2>
+            <div class="space-y-4 text-sm">
+              <div class="bg-rose-50/50 p-4 rounded-xl break-keep">
+                <span class="inline-block bg-rose-100 text-rose-700 px-2 py-1 rounded-lg text-xs font-bold mb-2">🌱 삶의 적용</span>
+                <p class="text-gray-700 font-medium">나의 것을 욕심내지 않고, 도움이 필요한 사람이나 우리 가족에게 기쁘게 나누어 주기로 다짐해요.</p>
+              </div>
+              <div class="bg-rose-50 p-4 rounded-xl break-keep">
+                <span class="inline-block bg-rose-200 text-rose-800 px-2 py-1 rounded-lg text-xs font-bold mb-2">🙏 기도제목</span>
+                <p class="text-gray-700 font-medium leading-relaxed">
+                  "하나님, 저도 오병이어를 드린 소년처럼 나의 것을 기쁘게 나눌 수 있는 예쁜 마음을 주세요. 우리 가족이 서로 돕고 나누며 기적이 넘치는 사랑의 가정이 되게 해주세요. 예수님의 이름으로 기도합니다. 아멘."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. 주기도문 -->
+          <div onclick="toggleSection('prayer')" class="bg-white rounded-3xl p-6 shadow-sm border-t-4 border-purple-400 relative overflow-hidden cursor-pointer transition-all active:scale-[0.98]">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5">🙏</div>
+            <div class="flex justify-between items-center mb-2">
+              <h2 class="font-extrabold text-purple-800 text-lg"><span id="prayer-number">6.</span> 주기도문</h2>
+              <span id="icon-prayer" class="text-purple-800/50 text-sm">▼</span>
+            </div>
+            <p class="text-gray-600 font-medium break-keep">주님이 가르쳐주신 기도로 오늘 예배를 마칩니다.</p>
+            
+            <div id="content-prayer" class="hidden mt-4 pt-4 border-t border-gray-100 text-gray-700 text-sm leading-relaxed space-y-2 break-keep bg-gray-50 p-4 rounded-xl text-center">
+              <p>하늘에 계신 우리 아버지여,</p>
+              <p>이름이 거룩히 여김을 받으시오며,</p>
+              <p>나라이 임하옵시며,</p>
+              <p>뜻이 하늘에서 이룬 것 같이 땅에서도 이루어지이다.</p>
+              <p>오늘날 우리에게 일용할 양식을 주옵시고,</p>
+              <p>우리가 우리에게 죄 지은 자를 사하여 준 것 같이</p>
+              <p>우리 죄를 사하여 주옵시고,</p>
+              <p>우리를 시험에 들게 하지 마옵시고,</p>
+              <p>다만 악에서 구하옵소서.</p>
+              <p>대개 나라와 권세와 영광이 아버지께</p>
+              <p>영원히 있사옵나이다. 아멘.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    
+    <!-- 하단 네비게이션 바 -->
+    <nav id="bottom-nav" class="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 px-1 z-20 pb-8" style="display: none;">
+      <div onclick="goToPage('page-home')" class="nav-item active flex flex-col items-center flex-1" id="nav-home">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+        <span class="text-[11px] font-bold">홈</span>
+      </div>
+      <div onclick="goToPage('page-commentary')" class="nav-item inactive flex flex-col items-center flex-1" id="nav-commentary">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+        <span class="text-[11px] font-bold">말씀해설</span>
+      </div>
+      <div onclick="goToPage('page-sharing')" class="nav-item inactive flex flex-col items-center flex-1" id="nav-sharing">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+        <span class="text-[11px] font-bold">나눔방</span>
+      </div>
+      <div onclick="goToPage('page-worship')" class="nav-item inactive flex flex-col items-center flex-1" id="nav-worship">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+        <span class="text-[11px] font-bold">가정예배</span>
+      </div>
+    </nav>
+
+  </div>
+
+  <script>
+    const pageTitles = {
+      'page-home': '오늘의 말씀',
+      'page-commentary': '말씀 해설',
+      'page-sharing': '가족 나눔방',
+      'page-worship': '가정예배'
+    };
+
+    // 오늘 읽기 상태 임시 저장소 (데모용)
+    const readStatus = {
+      '엄마': true,
+      '요한': true,
+      '아빠': false,
+      '노아': false
+    };
+
+    // 읽기 완료 버튼 클릭 시
+    function markAsRead() {
+      const currentName = localStorage.getItem('familyProfileName');
+      if (currentName) {
+        readStatus[currentName] = true;
+        
+        // 1. 프로필 UI 업데이트
+        const wrapper = document.getElementById(`progress-${currentName}`);
+        const check = document.getElementById(`progress-check-${currentName}`);
+        const img = document.getElementById(`progress-img-${currentName}`);
+        const text = document.getElementById(`progress-text-${currentName}`);
+        
+        if (wrapper) {
+          wrapper.classList.remove('opacity-40', 'grayscale');
+          wrapper.classList.add('relative');
+          
+          check.classList.remove('hidden');
+          check.classList.add('flex');
+          
+          img.classList.remove('border-gray-200');
+          img.classList.add('border-green-400', 'shadow-[0_0_10px_rgba(74,222,128,0.4)]');
+          
+          text.classList.remove('text-gray-500');
+          text.classList.add('text-gray-800');
+        }
+
+        // 2. 버튼 상태 변경
+        const btnContainer = document.getElementById('finish-btn-container');
+        btnContainer.innerHTML = `
+          <div class="w-full bg-green-50 text-green-700 border border-green-200 font-bold text-lg py-4 rounded-2xl flex items-center justify-center gap-2 scale-in-center">
+            <span>✅</span> 오늘 읽기 완료! 참 잘했어요
+          </div>
+        `;
+
+        // 3. 퍼센트 업데이트
+        const completed = Object.values(readStatus).filter(Boolean).length;
+        document.getElementById('progress-percent').innerText = `${Math.round((completed / 4) * 100)}% 완료`;
+      }
+    }
+
+    // 페이지 로드 시 프로필 저장 여부 확인 및 날짜 설정
+    window.onload = () => {
+      // 날짜 설정
+      const days = ['주일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+      const d = new Date();
+      const todayDay = days[d.getDay()];
+      document.getElementById('today-date').innerText = `${d.getMonth() + 1}월 ${d.getDate()}일 ${todayDay} (맥체인 성경읽기)`;
+      
+      const worshipDayEl = document.getElementById('worship-day');
+      if (worshipDayEl) worshipDayEl.innerText = todayDay;
+
+      const savedProfile = localStorage.getItem('familyProfileName');
+      const savedEmoji = localStorage.getItem('familyProfileEmoji');
+      if (savedProfile && savedEmoji) {
+        // 수요일, 금요일은 가정예배 화면으로 랜딩, 그 외는 홈(말씀) 화면으로 랜딩
+        if (todayDay === '수요일' || todayDay === '금요일') {
+          goToPage('page-worship');
+        } else {
+          goToPage('page-home');
+        }
+      } else {
+        goToPage('page-profile');
+      }
+    };
+
+    // 프로필 선택 함수
+    function selectProfile(name, emoji) {
+      localStorage.setItem('familyProfileName', name);
+      localStorage.setItem('familyProfileEmoji', emoji);
+      goToPage('page-home');
+    }
+
+    // 프로필 변경 함수
+    function changeProfile() {
+      localStorage.removeItem('familyProfileName');
+      localStorage.removeItem('familyProfileEmoji');
+      goToPage('page-profile');
+    }
+
+    // 페이지 이동 함수
+    function goToPage(pageId) {
+      // 모든 페이지 숨기기
+      document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+      // 선택한 페이지 보여주기
+      document.getElementById(pageId).classList.add('active');
+
+      const bottomNav = document.getElementById('bottom-nav');
+      const topHeader = document.getElementById('top-header');
+      const appContainer = document.getElementById('app-container');
+
+      // 요일별 랜덤(지정) 파스텔 배경색 설정
+      const dayBgColors = [
+        'bg-rose-50',     // 일요일
+        'bg-orange-50',   // 월요일
+        'bg-yellow-50',   // 화요일
+        'bg-green-50',    // 수요일
+        'bg-blue-50',     // 목요일
+        'bg-purple-50',   // 금요일
+        'bg-teal-50'      // 토요일
+      ];
+      const todayBg = dayBgColors[new Date().getDay()];
+
+      // 배경색 변경
+      appContainer.className = appContainer.className.replace(/bg-\[[^\]]+\]|bg-\w+-\d+/g, '').trim();
+      appContainer.classList.add(todayBg);
+
+      // 상단 프로필 이미지 업데이트
+      const currentUser = localStorage.getItem('familyProfileName') || '아빠';
+      const positions = {
+        '아빠': '31% 15%',
+        '엄마': '74% 24%',
+        '요한': '30% 50%',
+        '노아': '71% 52%'
+      };
+      const profileImg = document.getElementById('current-profile-img');
+      if (profileImg) {
+        profileImg.style.backgroundPosition = positions[currentUser] || '31% 15%';
+      }
+
+      // 상/하단 바 제어
+      if (pageId === 'page-profile') {
+        bottomNav.style.display = 'none';
+        topHeader.style.display = 'none';
+      } else {
+        bottomNav.style.display = 'flex';
+        topHeader.style.display = 'flex';
+        
+        const pageTitles = {
+          'page-home': '오늘의 말씀',
+          'page-commentary': '말씀 해설',
+          'page-sharing': '가족 나눔방',
+          'page-worship': '가정예배'
+        };
+        document.getElementById('header-title').innerText = pageTitles[pageId] || '';
+      }
+
+      // 홈 화면 어른/아이 분기 처리
+      if (pageId === 'page-home') {
+        const currentUser = localStorage.getItem('familyProfileName');
+        const isKid = currentUser === '요한' || currentUser === '노아';
+        
+        const days = ['주일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const d = new Date();
+        const dateString = `${d.getMonth() + 1}월 ${d.getDate()}일 ${days[d.getDay()]}`;
+        
+        document.getElementById('today-date').innerText = isKid 
+          ? `${dateString} (어린이 성경 365)`
+          : `${dateString} (맥체인 성경읽기)`;
+          
+        if (isKid) {
+          document.getElementById('adult-reading-view').classList.add('hidden');
+          document.getElementById('kid-reading-view').classList.remove('hidden');
+        } else {
+          document.getElementById('adult-reading-view').classList.remove('hidden');
+          document.getElementById('kid-reading-view').classList.add('hidden');
+        }
+      }
+
+      // 가정예배 아빠 설교 분기 처리
+      if (pageId === 'page-worship') {
+        const currentUser = localStorage.getItem('familyProfileName');
+        if (currentUser === '아빠') {
+          document.getElementById('dad-sermon-content').classList.remove('hidden');
+        } else {
+          document.getElementById('dad-sermon-content').classList.add('hidden');
+        }
+      }
+
+      // 네비게이션 탭 하이라이트
+      if (pageId !== 'page-profile') {
+        document.querySelectorAll('.nav-item').forEach(el => {
+          el.classList.remove('active');
+          el.classList.add('inactive');
+        });
+        const navId = pageId.replace('page', 'nav');
+        const activeNav = document.getElementById(navId);
+        if (activeNav) {
+          activeNav.classList.remove('inactive');
+          activeNav.classList.add('active');
+        }
+      }
+    }
+
+    // 아코디언 토글 기능
+    function toggleSection(sectionId) {
+      const content = document.getElementById(`content-${sectionId}`);
+      const icon = document.getElementById(`icon-${sectionId}`);
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        if(sectionId.includes('song')) icon.innerText = '접기 ▲';
+        else icon.innerText = '▲';
+      } else {
+        content.classList.add('hidden');
+        if(sectionId.includes('song')) icon.innerText = '악보/듣기 ▼';
+        else icon.innerText = '▼';
+      }
+    }
+
+    // 나눔방 모달 토글
+    function openSharingModal() {
+      document.getElementById('sharing-modal').classList.remove('hidden');
+      document.getElementById('sharing-input').focus();
+    }
+    
+    function closeSharingModal() {
+      document.getElementById('sharing-modal').classList.add('hidden');
+      document.getElementById('sharing-input').value = '';
+    }
+    
+    function submitSharingMessage() {
+      const input = document.getElementById('sharing-input');
+      const text = input.value.trim();
+      if (!text) return;
+      
+      const currentUser = localStorage.getItem('familyProfileName') || '아빠';
+      // 가족 이미지 위치 (정확한 좌표)
+      const positions = {
+        '아빠': '31% 15%',
+        '엄마': '74% 24%',
+        '요한': '30% 50%',
+        '노아': '71% 52%'
+      };
+      const pos = positions[currentUser] || '31% 15%';
+      
+      const time = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+      
+      const html = `
+        <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 relative slide-in-bottom mt-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center bg-[url('family.jpg')] bg-[length:400%_auto]" style="background-position: ${pos};"></div>
+            <div>
+              <h4 class="font-bold text-gray-800 text-sm">${currentUser}</h4>
+              <p class="text-xs text-gray-400">${time}</p>
+            </div>
+          </div>
+          <p class="text-gray-700 text-sm leading-relaxed break-keep">
+            ${text}
+          </p>
+        </div>
+      `;
+      
+      document.getElementById('sharing-list').insertAdjacentHTML('beforeend', html);
+      closeSharingModal();
+      
+      // 스크롤 맨 아래로 이동
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 100);
+    }
+  </script>
+</body>
+</html>
