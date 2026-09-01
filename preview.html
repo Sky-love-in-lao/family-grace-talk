@@ -856,12 +856,19 @@
           const yPlan = Array.isArray(currentDayPlan['요한']) ? currentDayPlan['요한'][0] : currentDayPlan['요한'];
           const nPlan = Array.isArray(currentDayPlan['노아']) ? currentDayPlan['노아'][0] : currentDayPlan['노아'];
           
+          const cpName = localStorage.getItem('familyProfileName');
           let childrenToRender = [];
           if (yPlan.eng === nPlan.eng && yPlan.chapter === nPlan.chapter) {
               childrenToRender.push({ name: '요한&노아', plan: yPlan });
           } else {
-              childrenToRender.push({ name: '요한', plan: yPlan });
-              childrenToRender.push({ name: '노아', plan: nPlan });
+              if (cpName === '요한') {
+                  childrenToRender.push({ name: '요한', plan: yPlan });
+              } else if (cpName === '노아') {
+                  childrenToRender.push({ name: '노아', plan: nPlan });
+              } else {
+                  childrenToRender.push({ name: '요한', plan: yPlan });
+                  childrenToRender.push({ name: '노아', plan: nPlan });
+              }
           }
 
           childrenToRender.forEach(child => {
