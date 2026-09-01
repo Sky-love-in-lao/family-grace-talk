@@ -146,14 +146,14 @@
             </div>
           </div>
 
-          <!-- 아이들 읽기 안내 블록 -->
+          <!-- 가족 통독 안내 블록 -->
           <div class="bg-orange-50 border border-orange-100 rounded-3xl p-6 mb-6">
             <h3 class="font-bold text-orange-800 mb-2 flex items-center gap-2">
-              <span>🎈</span> 오늘 아이들이 읽는 말씀
+              <span>🎈</span> 오늘 우리 가족이 읽는 말씀
             </h3>
-            <p class="text-sm font-bold text-gray-800 mb-2">🍞 오병이어의 기적 (마태복음 14:17-21)</p>
+            <p class="text-sm font-bold text-gray-800 mb-2">🍞 신약성경 말씀 통독</p>
             <p class="text-sm text-gray-600 break-keep leading-relaxed">
-              부모님이 오늘 통독하시는 <span class="font-bold">마태복음 14장</span> 내용 중, 요한이와 노아가 이해하기 쉬운 '오병이어 기적' 이야기를 아이들이 읽고 있어요. 오늘 저녁 나눔방에서 이 이야기를 함께 나눠보세요!
+              부모님과 아이들이 매일 신약성경을 순서대로 이어서 통독하고 있어요. 오늘 본문에서 가장 기억에 남는 말씀이나 깨달은 점을 저녁 나눔방에서 가족과 함께 자유롭게 나눠보세요!
             </p>
           </div>
         </div>
@@ -262,7 +262,7 @@
       <div id="page-worship" class="page px-6 pb-6 pt-2">
         <div class="bg-brand-brown text-white rounded-3xl p-7 shadow-lg relative overflow-hidden mb-8">
           <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
-          <h2 class="text-2xl font-bold mb-2 relative z-10"><span id="worship-day">수요일</span> 가정예배</h2>
+          <h2 class="text-2xl font-bold mb-2 relative z-10"><span id="worship-day"></span>가정예배</h2>
           <p class="text-brand-brown/40 text-white/80 text-sm relative z-10">오후 7시 00분 시작</p>
         </div>
 
@@ -479,7 +479,13 @@
       document.getElementById('today-date').innerText = `${d.getMonth() + 1}월 ${d.getDate()}일 ${todayDay} (맥체인 성경읽기)`;
       
       const worshipDayEl = document.getElementById('worship-day');
-      if (worshipDayEl) worshipDayEl.innerText = todayDay;
+      if (worshipDayEl) {
+         if (todayDay === '수요일' || todayDay === '금요일') {
+             worshipDayEl.innerText = todayDay + " ";
+         } else {
+             worshipDayEl.innerText = "";
+         }
+      }
 
       const savedProfile = localStorage.getItem('familyProfileName');
       const savedEmoji = localStorage.getItem('familyProfileEmoji');
