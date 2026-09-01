@@ -74,9 +74,7 @@ export default function Worship() {
               </div>
               {expanded.song1 && (
                 <div className="mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
-                  <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center relative overflow-hidden">
-                    <span className="text-gray-500 font-bold z-10 flex items-center gap-2">▶️ YouTube 영상 재생</span>
-                    <div className="absolute inset-0 bg-black/5"></div>
+                  
                   </div>
                   <div className="h-32 bg-white border border-gray-200 rounded-lg flex items-center justify-center">
                     <span className="text-gray-400 text-sm">🎼 (실제 악보 이미지 파일로 교체하세요)</span>
@@ -99,9 +97,7 @@ export default function Worship() {
               </div>
               {expanded.song2 && (
                 <div className="mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
-                  <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center relative overflow-hidden">
-                    <span className="text-gray-500 font-bold z-10 flex items-center gap-2">▶️ YouTube 영상 재생</span>
-                    <div className="absolute inset-0 bg-black/5"></div>
+                  
                   </div>
                   <div className="h-32 bg-white border border-gray-200 rounded-lg flex items-center justify-center">
                     <span className="text-gray-400 text-sm">🎼 (실제 악보 이미지 파일로 교체하세요)</span>
