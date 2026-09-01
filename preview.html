@@ -700,7 +700,7 @@
     // Listen to messages
     const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
     onSnapshot(q, (snapshot) => {
-      const container = document.getElementById('sharing-messages');
+      const container = document.getElementById('sharing-list');
       if (!container) return;
       container.innerHTML = ''; 
       snapshot.forEach((docSnap) => {
