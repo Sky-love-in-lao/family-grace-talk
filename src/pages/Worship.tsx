@@ -23,7 +23,7 @@ export default function Worship() {
       <div className="bg-brand-brown text-white rounded-3xl p-7 shadow-lg relative overflow-hidden mb-8">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
         <h2 className="text-2xl font-bold mb-2 relative z-10">{todayDay} 가정예배</h2>
-        <p className="text-brand-brown/40 text-white/80 text-sm relative z-10">오후 8시 00분 시작</p>
+        <p className="text-brand-brown/40 text-white/80 text-sm relative z-10">오후 7시 00분 시작</p>
       </div>
 
       <div className="space-y-5">
