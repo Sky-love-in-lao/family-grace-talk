@@ -868,8 +868,8 @@
                 const childChapter = childBook.chapters.find(c => String(c.chapter) === String(childPlan.chapter));
                 if(childChapter && childChapter.verses) {
                    
-                   // 이름 빼고 그냥 "오늘의 핵심 말씀"으로 고정!
-                   const titlePrefix = '📖 오늘의 핵심 말씀';
+                   // 이름 빼고 그냥 "오늘의 말씀"으로 고정!
+                   const titlePrefix = '📖 오늘의 말씀';
                    
                    commHtml += `<div class="mt-4 bg-white/50 p-4 rounded-xl">
                       <h4 class="font-bold text-brand-brown mb-3">${titlePrefix} <span class="text-sm font-normal text-gray-500 ml-1">(${childPlan.kor} ${childPlan.chapter}장)</span></h4>`;
