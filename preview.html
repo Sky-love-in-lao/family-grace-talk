@@ -595,11 +595,14 @@
       // 가정예배 아빠 설교 분기 처리
       if (pageId === 'page-worship') {
         const currentUser = localStorage.getItem('familyProfileName');
-        if (currentUser === '아빠') {
-          document.getElementById('dad-sermon-content').classList.remove('hidden');
-        } else {
-          document.getElementById('dad-sermon-content').classList.add('hidden');
-        }
+        // iOS Safari layout recalculation fix
+        setTimeout(() => {
+          if (currentUser === '아빠') {
+            document.getElementById('dad-sermon-content').classList.remove('hidden');
+          } else {
+            document.getElementById('dad-sermon-content').classList.add('hidden');
+          }
+        }, 50);
       }
 
       // 네비게이션 탭 하이라이트
