@@ -92,7 +92,7 @@
         <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 mb-6">
           <h3 class="font-bold text-gray-800 mb-4 flex justify-between items-end">
             <span>우리가족 오늘 읽기</span>
-            <span id="progress-percent" class="text-xs font-bold text-brand-peach bg-brand-peach/10 px-2 py-1 rounded-full transition-all">50% 완료</span>
+            <span id="progress-percent" class="text-xs font-bold text-brand-peach bg-brand-peach/10 px-2 py-1 rounded-full transition-all">0% 완료</span>
           </h3>
           <div class="flex justify-between items-center px-1">
             <!-- 아빠 -->
@@ -102,56 +102,53 @@
               <span id="progress-text-아빠" class="text-[11px] font-bold text-gray-500 transition-all duration-500">아빠</span>
             </div>
             <!-- 엄마 -->
-            <div id="progress-엄마" class="flex flex-col items-center transition-all duration-500 relative">
-              <div id="progress-check-엄마" class="absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-white z-10 text-[10px]">✓</div>
-              <div id="progress-img-엄마" class="w-12 h-12 rounded-full mb-1 border-2 border-green-400 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:74%_24%] shadow-[0_0_10px_rgba(74,222,128,0.4)] transition-all duration-500"></div>
-              <span id="progress-text-엄마" class="text-[11px] font-bold text-gray-800 transition-all duration-500">엄마</span>
+            <div id="progress-엄마" class="flex flex-col items-center opacity-40 grayscale transition-all duration-500 relative">
+              <div id="progress-check-엄마" class="hidden absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 items-center justify-center border-2 border-white z-10 text-[10px] scale-in-center">✓</div>
+              <div id="progress-img-엄마" class="w-12 h-12 rounded-full mb-1 border-2 border-gray-200 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:74%_24%] transition-all duration-500"></div>
+              <span id="progress-text-엄마" class="text-[11px] font-bold text-gray-400 transition-all duration-500">엄마</span>
             </div>
             <!-- 요한 -->
-            <div id="progress-요한" class="flex flex-col items-center transition-all duration-500 relative">
-              <div id="progress-check-요한" class="absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-white z-10 text-[10px]">✓</div>
-              <div id="progress-img-요한" class="w-12 h-12 rounded-full mb-1 border-2 border-green-400 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:30%_50%] shadow-[0_0_10px_rgba(74,222,128,0.4)] transition-all duration-500"></div>
-              <span id="progress-text-요한" class="text-[11px] font-bold text-gray-800 transition-all duration-500">요한</span>
+            <div id="progress-요한" class="flex flex-col items-center opacity-40 grayscale transition-all duration-500 relative">
+              <div id="progress-check-요한" class="hidden absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 items-center justify-center border-2 border-white z-10 text-[10px] scale-in-center">✓</div>
+              <div id="progress-img-요한" class="w-12 h-12 rounded-full mb-1 border-2 border-gray-200 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:30%_50%] transition-all duration-500"></div>
+              <span id="progress-text-요한" class="text-[11px] font-bold text-gray-400 transition-all duration-500">요한</span>
             </div>
             <!-- 노아 -->
-            <div id="progress-노아" class="flex flex-col items-center opacity-40 grayscale transition-all duration-500">
+            <div id="progress-노아" class="flex flex-col items-center opacity-40 grayscale transition-all duration-500 relative">
               <div id="progress-check-노아" class="hidden absolute -top-1 -right-1 bg-green-500 text-white rounded-full w-5 h-5 items-center justify-center border-2 border-white z-10 text-[10px] scale-in-center">✓</div>
-              <div id="progress-img-노아" class="w-12 h-12 rounded-full mb-1 border-2 border-gray-200 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:71%_52%] transition-all duration-500 relative"></div>
-              <span id="progress-text-노아" class="text-[11px] font-bold text-gray-500 transition-all duration-500">노아</span>
+              <div id="progress-img-노아" class="w-12 h-12 rounded-full mb-1 border-2 border-gray-200 bg-[url('family.jpg')] bg-[length:400%_auto] bg-[position:71%_52%] transition-all duration-500"></div>
+              <span id="progress-text-노아" class="text-[11px] font-bold text-gray-400 transition-all duration-500">노아</span>
             </div>
           </div>
         </div>
         
         <div id="adult-reading-view" class="hidden">
           <div class="grid grid-cols-2 gap-3 mb-6">
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">가족</span>
-              <span class="font-bold text-gray-800 text-sm">사무엘하 17장</span>
+            <div id="btn-chapter-아빠" onclick="selectPassage('아빠')" class="cursor-pointer bg-brand-brown rounded-2xl p-4 shadow-sm border border-brand-brown flex flex-col items-center justify-center text-center transition-all duration-300">
+              <span class="text-[10px] font-bold text-white/90 bg-white/20 px-2 py-0.5 rounded-full mb-1">아빠</span>
+              <span id="title-chapter-아빠" class="font-bold text-white text-sm">로딩중...</span>
             </div>
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">가족</span>
-              <span class="font-bold text-gray-800 text-sm">마태복음 14장</span>
+            <div id="btn-chapter-엄마" onclick="selectPassage('엄마')" class="cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">엄마</span>
+              <span id="title-chapter-엄마" class="font-bold text-gray-800 text-sm">로딩중...</span>
             </div>
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">개인</span>
-              <span class="font-bold text-gray-800 text-sm">에스겔 24장</span>
+            <div id="btn-chapter-요한" onclick="selectPassage('요한')" class="cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">요한</span>
+              <span id="title-chapter-요한" class="font-bold text-gray-800 text-sm">로딩중...</span>
             </div>
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">개인</span>
-              <span class="font-bold text-gray-800 text-sm">시편 72장</span>
+            <div id="btn-chapter-노아" onclick="selectPassage('노아')" class="cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300">
+              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">노아</span>
+              <span id="title-chapter-노아" class="font-bold text-gray-800 text-sm">로딩중...</span>
             </div>
           </div>
 
           <div class="bg-white rounded-3xl p-7 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-50 mb-6 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-24 h-24 bg-brand-peach rounded-full -mr-10 -mt-10 opacity-50"></div>
-            <h2 class="text-xl font-bold text-brand-brown mb-5 relative z-10">📖 사무엘하 17장</h2>
-            <div class="text-gray-800 leading-relaxed text-lg font-medium relative z-10 space-y-4 break-keep">
-              <p><sup class="text-xs text-brand-brown/70 mr-1">1</sup>아히도벨이 또 압살롬에게 이르되 이제 내가 사람 만 이천 명을 택하게 하소서 오늘 밤에 내가 일어나서 다윗의 뒤를 추적하여</p>
-              <p><sup class="text-xs text-brand-brown/70 mr-1">2</sup>그가 곤하고 힘이 빠졌을 때에 기습하여 그를 무섭게 하면 그와 함께 있는 모든 백성이 도망하리니 내가 다윗 왕만 쳐죽이고</p>
-              <div class="text-center pt-4 pb-2">
-                <p class="text-sm text-gray-400 font-normal">... (이후 본문 계속) ...</p>
-              </div>
+            <h2 id="bible-title" class="text-xl font-bold text-brand-brown mb-5 relative z-10">📖 로딩중...</h2>
+            <div id="bible-content" class="text-gray-800 leading-relaxed text-lg font-medium relative z-10 space-y-4 break-keep">
+              <div class="flex justify-center py-10"><span class="animate-pulse">성경 데이터를 불러오는 중입니다...</span></div>
             </div>
+          </div>
           </div>
 
           <!-- 아이들 읽기 안내 블록 -->
@@ -478,6 +475,8 @@
 
     // 페이지 로드 시 프로필 저장 여부 확인 및 날짜 설정
     window.onload = () => {
+      loadBibleData();
+
       // 날짜 설정
       const days = ['주일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
       const d = new Date();
