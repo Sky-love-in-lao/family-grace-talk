@@ -125,19 +125,15 @@
         <div id="adult-reading-view" class="hidden">
           <div class="grid grid-cols-2 gap-3 mb-6">
             <div id="btn-chapter-아빠" onclick="selectPassage('아빠')" class="cursor-pointer bg-brand-brown rounded-2xl p-4 shadow-sm border border-brand-brown flex flex-col items-center justify-center text-center transition-all duration-300">
-              <span class="text-[10px] font-bold text-white/90 bg-white/20 px-2 py-0.5 rounded-full mb-1">아빠</span>
               <span id="title-chapter-아빠" class="font-bold text-white text-sm">로딩중...</span>
             </div>
             <div id="btn-chapter-엄마" onclick="selectPassage('엄마')" class="cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">엄마</span>
               <span id="title-chapter-엄마" class="font-bold text-gray-800 text-sm">로딩중...</span>
             </div>
             <div id="btn-chapter-요한" onclick="selectPassage('요한')" class="cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">요한</span>
               <span id="title-chapter-요한" class="font-bold text-gray-800 text-sm">로딩중...</span>
             </div>
             <div id="btn-chapter-노아" onclick="selectPassage('노아')" class="cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300">
-              <span class="text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1">노아</span>
               <span id="title-chapter-노아" class="font-bold text-gray-800 text-sm">로딩중...</span>
             </div>
           </div>
@@ -824,12 +820,10 @@
           if(!btn) return;
           if(name === profileName) {
              btn.className = "cursor-pointer bg-brand-brown rounded-2xl p-4 shadow-sm border border-brand-brown flex flex-col items-center justify-center text-center transition-all duration-300";
-             btn.children[0].className = "text-[10px] font-bold text-white/90 bg-white/20 px-2 py-0.5 rounded-full mb-1";
-             btn.children[1].className = "font-bold text-white text-sm";
+             btn.children[0].className = "font-bold text-white text-base";
           } else {
              btn.className = "cursor-pointer bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center transition-all duration-300";
-             btn.children[0].className = "text-[10px] font-bold text-brand-peach bg-brand-peach/10 px-2 py-0.5 rounded-full mb-1";
-             btn.children[1].className = "font-bold text-gray-800 text-sm";
+             btn.children[0].className = "font-bold text-gray-800 text-base";
           }
        });
        
