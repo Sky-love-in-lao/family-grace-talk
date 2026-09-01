@@ -492,6 +492,7 @@
           goToPage('page-worship');
         } else {
           goToPage('page-home');
+      if(typeof selectPassage === 'function') selectPassage(name);
         }
       } else {
         goToPage('page-profile');
@@ -503,6 +504,7 @@
       localStorage.setItem('familyProfileName', name);
       localStorage.setItem('familyProfileEmoji', emoji);
       goToPage('page-home');
+      if(typeof selectPassage === 'function') selectPassage(name);
     }
 
     // 프로필 변경 함수
@@ -861,13 +863,14 @@
           if (yPlan.eng === nPlan.eng && yPlan.chapter === nPlan.chapter) {
               childrenToRender.push({ name: '요한&노아', plan: yPlan });
           } else {
+              const cpName = localStorage.getItem('familyProfileName');
               if (cpName === '요한') {
                   childrenToRender.push({ name: '요한', plan: yPlan });
               } else if (cpName === '노아') {
                   childrenToRender.push({ name: '노아', plan: nPlan });
               } else {
-                  childrenToRender.push({ name: '요한', plan: yPlan });
-                  childrenToRender.push({ name: '노아', plan: nPlan });
+                  // 부모님이 로그인한 경우, 가족이 공유할 "하나의" 핵심 말씀만 표시 (요한이 기준)
+                  childrenToRender.push({ name: '가족', plan: yPlan });
               }
           }
 
@@ -875,13 +878,11 @@
              const childPlan = child.plan;
              const childBook = fullBibleData.find(b => b.book === childPlan.eng);
              if(childBook) {
-                const childChapter = childBook.chapters.find(c => c.chapter === childPlan.chapter);
+                const childChapter = childBook.chapters.find(c => String(c.chapter) === String(childPlan.chapter));
                 if(childChapter && childChapter.verses) {
                    
-                   const cpName = localStorage.getItem('familyProfileName');
-                   const isOwn = (cpName === child.name || child.name === '요한&노아');
-                   // If the child is logged in, hide their name and just say '오늘의 핵심 말씀'
-                   const titlePrefix = isOwn ? '📖 오늘의 핵심 말씀' : `👦 ${child.name}의 핵심 말씀`;
+                   // 이름 빼고 그냥 "오늘의 핵심 말씀"으로 고정!
+                   const titlePrefix = '📖 오늘의 핵심 말씀';
                    
                    commHtml += `<div class="mt-4 bg-white/50 p-4 rounded-xl">
                       <h4 class="font-bold text-brand-brown mb-3">${titlePrefix} <span class="text-sm font-normal text-gray-500 ml-1">(${childPlan.kor} ${childPlan.chapter}장)</span></h4>`;
@@ -976,7 +977,7 @@
        planData.forEach((p, idx) => {
            const bookData = fullBibleData.find(b => b.book === p.eng);
            if(bookData) {
-              const chapterData = bookData.chapters.find(c => c.chapter === p.chapter);
+              const chapterData = bookData.chapters.find(c => String(c.chapter) === String(p.chapter));
               if(chapterData) {
                  if (idx > 0) fullHtml += `<div class="my-8 border-t-2 border-gray-100"></div>`;
                  fullHtml += `<h3 class="font-bold text-xl text-brand-brown mb-4">${p.kor} ${p.chapter}장</h3>`;
@@ -992,7 +993,7 @@
           const kidPlan = currentDayPlan[profileName];
           const kidBook = fullBibleData.find(b => b.book === kidPlan.eng);
           if (kidBook) {
-             const kidChapter = kidBook.chapters.find(c => c.chapter === kidPlan.chapter);
+             const kidChapter = kidBook.chapters.find(c => String(c.chapter) === String(kidPlan.chapter));
              if (kidChapter && kidChapter.verses) {
                  document.getElementById('kid-reading-title').innerText = `🍞 오늘의 말씀`;
                  document.getElementById('kid-reading-subtitle').innerText = `${kidPlan.kor} ${kidPlan.chapter}장`;
