@@ -877,13 +877,57 @@
              if(childBook) {
                 const childChapter = childBook.chapters.find(c => c.chapter === childPlan.chapter);
                 if(childChapter && childChapter.verses) {
-                   commHtml += `<div class="mt-4 bg-white/50 p-4 rounded-xl">
-                      <h4 class="font-bold text-brand-brown mb-2">👦 ${child.name}의 말씀: ${childPlan.kor} ${childPlan.chapter}장</h4>`;
                    
-                   const versesToShow = childChapter.verses; // Increase to 5 verses
-                   versesToShow.forEach(v => {
-                      commHtml += `<p class="text-base text-gray-800 mb-1 leading-relaxed"><sup class="text-xs text-brand-brown/70 mr-1">${v.verse}</sup>${v.text}</p>`;
-                   });
+                   const cpName = localStorage.getItem('familyProfileName');
+                   const isOwn = (cpName === child.name || child.name === '요한&노아');
+                   // If the child is logged in, hide their name and just say '오늘의 핵심 말씀'
+                   const titlePrefix = isOwn ? '📖 오늘의 핵심 말씀' : `👦 ${child.name}의 핵심 말씀`;
+                   
+                   commHtml += `<div class="mt-4 bg-white/50 p-4 rounded-xl">
+                      <h4 class="font-bold text-brand-brown mb-3">${titlePrefix} <span class="text-sm font-normal text-gray-500 ml-1">(${childPlan.kor} ${childPlan.chapter}장)</span></h4>`;
+                   
+                   const chapterDb = {
+                        "누가복음_22": {
+                            "text": "예수님께서 십자가에 달리시기 전, 제자들과 마지막 저녁 식사(최후의 만찬)를 하시며 우리를 향한 큰 사랑을 보여주신 이야기예요. 그리고 제자들에게 서로 섬기고 사랑하라고 가르쳐 주셨어요.",
+                            "start": 19, "end": 20
+                        },
+                        "야고보서_1": {
+                            "text": "힘들고 어려운 일(시험)이 생길 때 짜증내지 않고 기쁘게 이겨내면, 우리의 믿음이 쑥쑥 자란다는 것을 알려주는 말씀이에요. 지혜가 부족할 때는 하나님께 기도하면 듬뿍 주신답니다!",
+                            "start": 2, "end": 4
+                        },
+                        "마태복음_1": {
+                            "text": "예수님이 어떻게 이 땅에 오셨는지 족보와 탄생 이야기가 나와요. 예수님은 우리를 죄에서 구원해 주실 구원자로 오셨답니다.",
+                            "start": 21, "end": 23
+                        },
+                        "마태복음_2": {
+                            "text": "동방 박사들이 별을 보고 아기 예수님께 찾아와 예배를 드렸어요. 예수님은 온 세상의 진짜 왕이시랍니다.",
+                            "start": 10, "end": 11
+                        },
+                        "마태복음_3": {
+                            "text": "세례 요한이 예수님이 오실 길을 준비하며 사람들에게 회개하라고 외쳤어요. 예수님도 세례를 받으실 때 하늘에서 '내 사랑하는 아들'이라는 하나님의 음성이 들렸어요.",
+                            "start": 16, "end": 17
+                        },
+                        "마태복음_4": {
+                            "text": "예수님이 마귀의 유혹을 하나님의 말씀으로 멋지게 물리치시고, 갈릴리에서 제자들을 처음으로 부르시며 복음을 전하기 시작하셨어요.",
+                            "start": 19, "end": 20
+                        },
+                        "마태복음_5": {
+                            "text": "예수님이 산 위에서 사람들에게 천국에 가는 진짜 행복(팔복)이 무엇인지, 그리고 우리가 세상의 소금과 빛이 되어야 한다고 가르쳐 주셨어요.",
+                            "start": 14, "end": 16
+                        },
+                        "로마서_1": {
+                            "text": "바울 아저씨가 로마에 있는 사람들에게 편지를 쓰면서, 복음은 모든 사람을 구원하는 하나님의 놀라운 능력이라고 자랑스럽게 이야기해요.",
+                            "start": 16, "end": 17
+                        },
+                        "고린도전서_13": {
+                            "text": "세상에서 가장 중요한 것은 바로 '사랑'이라고 말해요. 사랑은 오래 참고, 친절하며, 자랑하지 않는 예쁜 마음이에요.",
+                            "start": 4, "end": 7
+                        },
+                        "사도행전_1": {
+                            "text": "예수님이 하늘로 올라가시기 전에 제자들에게 성령님이 오시면 온 세상에 예수님을 전하는 증인이 될 거라고 약속해 주셨어요.",
+                            "start": 8, "end": 8
+                        }
+                   };
                    
                    const bookExplanations = {
                      '마태복음': '마태복음은 우리를 구원하러 오신 진짜 왕, 예수님의 이야기예요! 예수님이 사람들을 어떻게 사랑하고 가르쳐 주셨는지 생각하며 읽어보아요.',
@@ -895,16 +939,29 @@
                      '고린도전서': '고린도전서는 교회 안에서 친구들과 싸우지 않고 서로 진짜 사랑(고린도전서 13장)하는 방법이 무엇인지 알려준답니다.',
                      '요한계시록': '요한계시록은 나중에 예수님이 다시 오실 때 만들어질 눈물도 아픔도 없는 반짝반짝 빛나는 새 하늘과 새 땅에 대한 희망의 이야기예요!'
                    };
-                   const defaultExp = `${childPlan.kor} 말씀은 하나님이 우리를 얼마나 사랑하시는지 알려주는 소중한 편지예요.`;
-                   const chapterDb = {"누가복음_22": "예수님께서 십자가에 달리시기 전, 제자들과 마지막 저녁 식사(최후의 만찬)를 하시며 우리를 향한 큰 사랑을 보여주신 이야기예요. 그리고 제자들에게 서로 섬기고 사랑하라고 가르쳐 주셨어요.", "야고보서_1": "힘들고 어려운 일(시험)이 생길 때 짜증내지 않고 기쁘게 이겨내면, 우리의 믿음이 쑥쑥 자란다는 것을 알려주는 말씀이에요. 지혜가 부족할 때는 하나님께 기도하면 듬뿍 주신답니다!", "마태복음_1": "예수님이 어떻게 이 땅에 오셨는지 족보와 탄생 이야기가 나와요. 예수님은 우리를 죄에서 구원해 주실 구원자로 오셨답니다.", "마태복음_2": "동방 박사들이 별을 보고 아기 예수님께 찾아와 예배를 드렸어요. 예수님은 온 세상의 진짜 왕이시랍니다.", "마태복음_3": "세례 요한이 예수님이 오실 길을 준비하며 사람들에게 회개하라고 외쳤어요. 예수님도 세례를 받으실 때 하늘에서 '내 사랑하는 아들'이라는 하나님의 음성이 들렸어요.", "마태복음_4": "예수님이 마귀의 유혹을 하나님의 말씀으로 멋지게 물리치시고, 갈릴리에서 제자들을 처음으로 부르시며 복음을 전하기 시작하셨어요.", "마태복음_5": "예수님이 산 위에서 사람들에게 천국에 가는 진짜 행복(팔복)이 무엇인지, 그리고 우리가 세상의 소금과 빛이 되어야 한다고 가르쳐 주셨어요.", "로마서_1": "바울 아저씨가 로마에 있는 사람들에게 편지를 쓰면서, 복음은 모든 사람을 구원하는 하나님의 놀라운 능력이라고 자랑스럽게 이야기해요.", "고린도전서_13": "세상에서 가장 중요한 것은 바로 '사랑'이라고 말해요. 사랑은 오래 참고, 친절하며, 자랑하지 않는 예쁜 마음이에요.", "사도행전_1": "예수님이 하늘로 올라가시기 전에 제자들에게 성령님이 오시면 온 세상에 예수님을 전하는 증인이 될 거라고 약속해 주셨어요."};
-                   const chapterKey = childPlan.kor + '_' + childPlan.chapter;
-                   const exactExplanation = chapterDb[chapterKey];
                    
-                   const explanation = exactExplanation || (bookExplanations[childPlan.kor] || defaultExp);
+                   const defaultExp = `${childPlan.kor} 말씀은 하나님이 우리를 얼마나 사랑하시는지 알려주는 소중한 편지예요.`;
+                   const chapterKey = childPlan.kor + '_' + childPlan.chapter;
+                   const exactData = chapterDb[chapterKey];
+                   
+                   let versesToShow = [];
+                   if (exactData) {
+                       const startId = exactData.start;
+                       const endId = exactData.end;
+                       versesToShow = childChapter.verses.filter(v => parseInt(v.verse) >= startId && parseInt(v.verse) <= endId);
+                   } else {
+                       versesToShow = childChapter.verses.slice(0, 3);
+                   }
+                   
+                   versesToShow.forEach(v => {
+                      commHtml += `<p class="text-base text-gray-800 mb-2 leading-relaxed"><sup class="text-xs text-brand-brown/70 mr-1">${v.verse}</sup>${v.text}</p>`;
+                   });
+                   
+                   const explanationText = exactData ? exactData.text : (bookExplanations[childPlan.kor] || defaultExp);
                    
                    commHtml += `<div class="mt-4 pt-4 border-t border-brand-brown/20 bg-orange-50/50 p-4 rounded-xl">
                                   <p class="text-base text-orange-900 font-bold mb-2">🎈 ${childPlan.kor} ${childPlan.chapter}장 쏙쏙 해설</p>
-                                  <p class="text-sm text-gray-700 leading-relaxed break-keep">${explanation}</p>
+                                  <p class="text-sm text-gray-800 leading-relaxed break-keep">${explanationText}</p>
                                   <p class="text-sm text-gray-700 leading-relaxed break-keep mt-3 font-bold">🙏 적용하기: 이 말씀대로 오늘 하루 어떻게 살아볼까요?</p>
                                 </div></div>`;
                 }
