@@ -582,8 +582,7 @@
           ? `${dateString} (어린이 성경 365)`
           : `${dateString} (맥체인 성경읽기)`;
           
-        const isKidProfile = (profileName === '요한' || profileName === '노아');
-       if (isKidProfile) {
+       if (isKid) {
           document.getElementById('adult-reading-view').classList.add('hidden');
           document.getElementById('kid-reading-view').classList.remove('hidden');
         } else {
