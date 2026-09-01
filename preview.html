@@ -855,7 +855,24 @@
        if(commEl && fullBibleData && currentDayPlan) {
           let commHtml = '<p class="font-bold mb-2">오늘 저녁 나눔방에서는 아이들이 읽은 본문을 함께 나누어 보세요!</p>';
           
-          const yPlan = Array.isArray(currentDayPlan['요한']) ? currentDayPlan['요한'][0] : currentDayPlan['요한'];
+          
+          // 아이들 본문 자동 선택 로직: 4개의 본문 중 신약(복음서 우선)을 고릅니다.
+          const ntBooks = ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1Corinthians', '2Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1Thessalonians', '2Thessalonians', '1Timothy', '2Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1Peter', '2Peter', '1John', '2John', '3John', 'Jude', 'Revelation'];
+          
+          let bestPlan = currentDayPlan['요한'];
+          let bestScore = 999;
+          
+          ['아빠', '엄마', '요한', '노아'].forEach(name => {
+              const plan = Array.isArray(currentDayPlan[name]) ? currentDayPlan[name][0] : currentDayPlan[name];
+              const idx = ntBooks.indexOf(plan.eng);
+              if (idx !== -1 && idx < bestScore) {
+                  bestScore = idx;
+                  bestPlan = plan;
+              }
+          });
+          
+          const yPlan = bestPlan;
+
           const nPlan = Array.isArray(currentDayPlan['노아']) ? currentDayPlan['노아'][0] : currentDayPlan['노아'];
           
           const cpName = localStorage.getItem('familyProfileName');
@@ -985,7 +1002,24 @@
        document.getElementById('bible-content').innerHTML = fullHtml || '<p>성경 본문을 찾을 수 없습니다.</p>';
        const isKidProfile = (profileName === '요한' || profileName === '노아');
        if (isKidProfile) {
-          const kidPlan = currentDayPlan['요한'];
+          
+          // 아이들 본문 자동 선택 로직: 4개의 본문 중 신약(복음서 우선)을 고릅니다.
+          const ntBooks = ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1Corinthians', '2Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1Thessalonians', '2Thessalonians', '1Timothy', '2Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1Peter', '2Peter', '1John', '2John', '3John', 'Jude', 'Revelation'];
+          
+          let bestPlan = currentDayPlan['요한'];
+          let bestScore = 999;
+          
+          ['아빠', '엄마', '요한', '노아'].forEach(name => {
+              const plan = Array.isArray(currentDayPlan[name]) ? currentDayPlan[name][0] : currentDayPlan[name];
+              const idx = ntBooks.indexOf(plan.eng);
+              if (idx !== -1 && idx < bestScore) {
+                  bestScore = idx;
+                  bestPlan = plan;
+              }
+          });
+          
+          const kidPlan = bestPlan;
+
           const kidBook = fullBibleData.find(b => b.book === kidPlan.eng);
           if (kidBook) {
              const kidChapter = kidBook.chapters.find(c => String(c.chapter) === String(kidPlan.chapter));
