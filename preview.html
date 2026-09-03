@@ -530,10 +530,28 @@
         const diff = d - start;
         const oneDay = 1000 * 60 * 60 * 24;
         const dayOfYear = Math.floor(diff / oneDay);
+        const weekOfYear = Math.floor(dayOfYear / 7);
         
-        // Use day of year to pick a worship stably for the entire day
-        // It changes every time dayOfYear changes
-        const index = dayOfYear % worshipDb.length;
+        const dayIndex = d.getDay(); // 0(Sun) to 6(Sat)
+        // 월(1), 화(2), 수(3) -> 이번 주 수요예배 본문 (slot 0)
+        // 목(4), 금(5), 토(6), 일(0) -> 이번 주 금요예배 본문 (slot 1)
+        let slot = 0;
+        if (dayIndex === 4 || dayIndex === 5 || dayIndex === 6 || dayIndex === 0) {
+            slot = 1;
+        }
+        
+        // 매주 수/금 마다 새로운 본문이 나오도록 순차적으로 계산
+        // offset을 주어서 오늘 당장 원래 보던 오병이어(0번)가 나오지 않고 새로운 본문이 나오도록 함
+        const offset = 3; 
+        const index = (weekOfYear * 2 + slot + offset) % worshipDb.length;
+        
+        // 날짜에 맞는 타겟 요일 텍스트도 여기서 업데이트 (만약 누락되었다면 방지)
+        const targetDay = (slot === 0) ? '수요일' : '금요일';
+        const worshipDayEl = document.getElementById('worship-day');
+        if (worshipDayEl) {
+            worshipDayEl.innerText = targetDay + " ";
+        }
+        
         return worshipDb[index];
     }
 
