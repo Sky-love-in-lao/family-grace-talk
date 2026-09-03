@@ -860,17 +860,28 @@ function toggleSection(sectionId) {
           '노아': '71% 52%'
         };
         const pos = positions[currentUser] || '31% 15%';
+        const currentProfileName = localStorage.getItem('familyProfileName');
+        const isMyPost = (currentUser === currentProfileName);
+        
         const html = `
-          <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 relative slide-in-bottom mb-4">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center bg-[url('family.jpg')] bg-[length:400%_auto]" style="background-position: ${pos};"></div>
-              <div>
-                <h4 class="font-bold text-gray-800 text-sm">${currentUser}</h4>
-                <p class="text-xs text-gray-400">${timeStr}</p>
+          <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 relative slide-in-bottom mb-4 group">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center bg-[url('family.jpg')] bg-[length:400%_auto]" style="background-position: ${pos};"></div>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-sm">${currentUser}</h4>
+                  <p class="text-xs text-gray-400">${timeStr}</p>
+                </div>
               </div>
+              ${isMyPost ? `
+              <div class="flex gap-2 opacity-50 hover:opacity-100 transition-opacity">
+                <button onclick="editMessage('${docSnap.id}')" class="text-xs text-gray-500 hover:text-brand-brown font-bold px-2 py-1 bg-gray-50 rounded-lg">수정</button>
+                <button onclick="deleteMessage('${docSnap.id}')" class="text-xs text-gray-500 hover:text-red-500 font-bold px-2 py-1 bg-gray-50 rounded-lg">삭제</button>
+              </div>
+              ` : ''}
             </div>
-            <p class="text-gray-700 text-sm leading-relaxed break-keep">
-              ${text}
+            <p class="text-gray-700 text-[15px] leading-relaxed break-keep">
+              ${text.replace(/\n/g, '<br>')}
             </p>
           </div>
         `;
@@ -1271,7 +1282,31 @@ function toggleSection(sectionId) {
        }
 
     }
-  </script>
+  
+    window.editMessage = async (id) => {
+      try {
+          const docSnap = await window.getDoc(window.doc(window.db, "messages", id));
+          if (docSnap.exists()) {
+              const oldText = docSnap.data().text;
+              const newText = prompt("나눔을 수정하시겠어요?", oldText);
+              if (newText !== null && newText.trim() !== "" && newText !== oldText) {
+                  await window.updateDoc(window.doc(window.db, "messages", id), {
+                      text: newText
+                  });
+              }
+          }
+      } catch(e) { alert("수정 오류: " + e.message); }
+    };
+    
+    window.deleteMessage = async (id) => {
+      if (confirm("정말 이 나눔을 삭제할까요?")) {
+          try {
+              await window.deleteDoc(window.doc(window.db, "messages", id));
+          } catch(e) { alert("삭제 오류: " + e.message); }
+      }
+    };
+</script>
+
 
 </body>
 </html>
