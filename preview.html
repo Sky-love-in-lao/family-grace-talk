@@ -824,6 +824,7 @@ function toggleSection(sectionId) {
     window.setDoc = setDoc;
     window.updateDoc = updateDoc;
     window.deleteDoc = deleteDoc;
+    window.getDoc = getDoc;
 
     // Listen to messages
     const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
