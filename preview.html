@@ -290,28 +290,24 @@
                 <div onclick="toggleSection('song1')" class="flex justify-between items-center bg-teal-50/50 p-3 rounded-xl cursor-pointer hover:bg-teal-50 transition-colors">
                   <div class="flex items-center gap-3">
                     <span class="bg-teal-100 text-teal-700 px-2 py-1 rounded-lg text-xs font-bold">곡1</span> 
-                    <span class="text-gray-700 font-bold text-sm">내 안에 부어주소서</span>
+                    <span id="worship-song1-title" class="text-gray-700 font-bold text-sm">내 안에 부어주소서</span>
                   </div>
-                  <span id="icon-song1" class="text-teal-600/50 text-xs">악보/듣기 ▼</span>
+                  <span id="icon-song1" class="text-teal-600/50 text-xs">찬양 듣기 ▼</span>
                 </div>
                 <div id="content-song1" class="hidden mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
-                  <div class="bg-white border border-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MDFfMTUy%2FMDAxNjgwMzUyODE5NTkz.trbpP4zaZ4tRF6g9x_rZo5fZ6h0V2tc27t9JbxEC220g.wirPc5lr4Q55O9VdfSYnTQRPMXg01RilvIjauhFkE2Ug.JPEG.emr31001%2F%25B3%25BB_%25BE%25C8%25BF%25A1_%25BA%25CE%25BE%25EE%25C1%25D6%25BC%25D2%25BC%25AD_G.jpg" alt="악보" class="w-full h-auto rounded-lg">
-                  </div>
+                  <a id="worship-song1-link" href="#" target="_blank" class="block w-full py-3 bg-red-50 text-red-600 border border-red-200 text-center rounded-lg font-bold hover:bg-red-100 transition-colors">▶️ 유튜브에서 찬양 듣기</a>
                 </div>
               </li>
               <li>
                 <div onclick="toggleSection('song2')" class="flex justify-between items-center bg-teal-50/50 p-3 rounded-xl cursor-pointer hover:bg-teal-50 transition-colors">
                   <div class="flex items-center gap-3">
                     <span class="bg-teal-100 text-teal-700 px-2 py-1 rounded-lg text-xs font-bold">곡2</span> 
-                    <span class="text-gray-700 font-bold text-sm">예수님이 좋은걸</span>
+                    <span id="worship-song2-title" class="text-gray-700 font-bold text-sm">예수님이 좋은걸</span>
                   </div>
-                  <span id="icon-song2" class="text-teal-600/50 text-xs">악보/듣기 ▼</span>
+                  <span id="icon-song2" class="text-teal-600/50 text-xs">찬양 듣기 ▼</span>
                 </div>
                 <div id="content-song2" class="hidden mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
-                  <div class="bg-white border border-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTEwMDFfMjE0%2FMDAxNzU5MzA5NDc1NTEw.XiID_7Ti9O_uQupWRKaQFhjQNt5CuCjaHbWDE9xf8_Ig.STd7Gz7kAIRWIBOcZHblzPypjSl5w3LWQc0mTNA5h6cg.JPEG%2F59_1%25BF%25B9%25BC%25F6%25B4%25D4%25C0%25CC_%25C1%25C1%25C0%25BA_%25B0%25C9.jpg" alt="악보" class="w-full h-auto rounded-lg">
-                  </div>
+                  <a id="worship-song2-link" href="#" target="_blank" class="block w-full py-3 bg-red-50 text-red-600 border border-red-200 text-center rounded-lg font-bold hover:bg-red-100 transition-colors">▶️ 유튜브에서 찬양 듣기</a>
                 </div>
               </li>
             </ul>
@@ -350,11 +346,11 @@
             <div class="space-y-4 text-sm">
               <div class="bg-rose-50/50 p-4 rounded-xl break-keep">
                 <span class="inline-block bg-rose-100 text-rose-700 px-2 py-1 rounded-lg text-xs font-bold mb-2">🌱 삶의 적용</span>
-                <p class="text-gray-700 font-medium">나의 것을 욕심내지 않고, 도움이 필요한 사람이나 우리 가족에게 기쁘게 나누어 주기로 다짐해요.</p>
+                <p id="worship-application-text" class="text-gray-700 font-medium">나의 것을 욕심내지 않고, 도움이 필요한 사람이나 우리 가족에게 기쁘게 나누어 주기로 다짐해요.</p>
               </div>
               <div class="bg-rose-50 p-4 rounded-xl break-keep">
                 <span class="inline-block bg-rose-200 text-rose-800 px-2 py-1 rounded-lg text-xs font-bold mb-2">🙏 기도제목</span>
-                <p class="text-gray-700 font-medium leading-relaxed">
+                <p id="worship-prayer-text" class="text-gray-700 font-medium leading-relaxed">
                   "하나님, 저도 오병이어를 드린 소년처럼 나의 것을 기쁘게 나눌 수 있는 예쁜 마음을 주세요. 우리 가족이 서로 돕고 나누며 기적이 넘치는 사랑의 가정이 되게 해주세요. 예수님의 이름으로 기도합니다. 아멘."
                 </p>
               </div>
@@ -424,6 +420,13 @@
     const worshipDb = [
         {
             title: "작은 것도 나누면 기적이 됩니다",
+            songs: [
+                {title: "오병이어", query: "어린이 찬양 오병이어"},
+                {title: "내 안에 부어주소서", query: "어린이 찬양 내 안에 부어주소서"}
+            ],
+            application: "나의 것을 욕심내지 않고, 도움이 필요한 사람이나 우리 가족에게 기쁘게 나누어 주기로 다짐해요.",
+            prayer: "\"하나님, 저도 오병이어를 드린 소년처럼 나의 것을 기쁘게 나눌 수 있는 예쁜 마음을 주세요. 우리 가족이 서로 돕고 나누며 기적이 넘치는 사랑의 가정이 되게 해주세요. 예수님의 이름으로 기도합니다. 아멘.\"",
+
             scripture: "마태복음 14장 17~21절",
             verses: [
                 {verse: "17", text: "제자들이 이르되 여기 우리에게 있는 것은 떡 다섯 개와 물고기 두 마리뿐이니이다"},
@@ -443,6 +446,13 @@
         },
         {
             title: "폭풍 속에서도 안전해요",
+            songs: [
+                {title: "예수님이 배에 오르시면", query: "어린이 찬양 예수님이 배에 오르시면"},
+                {title: "나는 두렵지 않네", query: "어린이 찬양 나는 두렵지 않네"}
+            ],
+            application: "무서운 마음이 들 때마다 나와 늘 함께 배를 타고 계시는 예수님께 도와달라고 씩씩하게 기도해요.",
+            prayer: "\"하나님, 캄캄한 밤이나 속상한 일이 생겨서 제 마음에 무서운 폭풍이 칠 때, 언제나 저와 함께하시는 예수님을 기억하게 해주세요. 예수님이 저를 꼭 안아주시고 지켜주실 것을 믿어요. 예수님의 이름으로 기도합니다. 아멘.\"",
+
             scripture: "마가복음 4장 37~39절",
             verses: [
                 {verse: "37", text: "큰 광풍이 일어나며 물결이 배에 부딪쳐 들어와 배에 가득하게 되었더라"},
@@ -460,6 +470,13 @@
         },
         {
             title: "잃어버린 양을 찾는 목자",
+            songs: [
+                {title: "나는 주의 양", query: "어린이 찬양 나는 주의 양"},
+                {title: "목자이신 주님", query: "어린이 찬양 목자이신 주님"}
+            ],
+            application: "나를 끝까지 찾아오시고 안아주시는 선한 목자 예수님을 언제나 졸졸 따라다니기로 다짐해요.",
+            prayer: "\"하나님, 길 잃은 한 마리 양 같은 저를 끝까지 찾아와 꼭 안아주셔서 정말 감사해요. 제가 다른 길로 가지 않고 언제나 선한 목자이신 예수님의 목소리만 듣고 졸졸 따라가는 예쁜 양이 되게 해주세요. 예수님의 이름으로 기도합니다. 아멘.\"",
+
             scripture: "누가복음 15장 4~6절",
             verses: [
                 {verse: "4", text: "너희 중에 어떤 사람이 양 백 마리가 있는데 그 중의 하나를 잃으면 아흔아홉 마리를 들에 두고 그 잃은 것을 찾아내기까지 찾아다니지 아니하겠느냐"},
@@ -477,6 +494,13 @@
         },
         {
             title: "삭개오의 마음에 찾아오신 예수님",
+            songs: [
+                {title: "삭개오", query: "어린이 찬양 삭개오 뽕나무"},
+                {title: "예수님이 좋은걸", query: "어린이 찬양 예수님이 좋은걸"}
+            ],
+            application: "미움받던 삭개오를 먼저 안아주신 예수님처럼, 나도 친구들에게 먼저 다가가 따뜻한 사랑을 전해주어요.",
+            prayer: "\"하나님, 아무도 좋아하지 않던 삭개오의 이름을 다정하게 불러주신 예수님의 사랑을 배웠어요. 저도 학교나 유치원에서 혼자 있는 친구에게 먼저 다가가 따뜻하게 안아주는 꼬마 예수님이 되게 해주세요. 예수님의 이름으로 기도합니다. 아멘.\"",
+
             scripture: "누가복음 19장 5~6절",
             verses: [
                 {verse: "5", text: "예수께서 그 곳에 이르사 쳐다 보시고 이르시되 삭개오야 속히 내려오라 내가 오늘 네 집에 유하여야 하겠다 하시니"},
@@ -493,6 +517,13 @@
         },
         {
             title: "돌아온 탕자를 안아주신 아버지",
+            songs: [
+                {title: "돌아온 탕자", query: "어린이 찬양 돌아온 탕자"},
+                {title: "하나님은 너를 사랑해", query: "어린이 찬양 하나님은 너를 사랑해"}
+            ],
+            application: "내가 큰 잘못을 했을 때, 숨기지 않고 하나님과 부모님께 솔직하게 말씀드리고 용서를 구해요.",
+            prayer: "\"하나님, 제가 거짓말을 하거나 나쁜 행동을 했을 때 피하거나 숨지 않고, '하나님 잘못했어요' 하고 솔직하게 기도하게 해주세요. 언제나 두 팔을 활짝 벌려 저를 안아주시는 좋으신 하나님을 사랑해요. 예수님의 이름으로 기도합니다. 아멘.\"",
+
             scripture: "누가복음 15장 20절",
             verses: [
                 {verse: "20", text: "이에 일어나서 아버지께로 돌아가니라 아직도 거리가 먼데 아버지가 그를 보고 측은히 여겨 달려가 목을 안고 입을 맞추니"}
@@ -508,6 +539,13 @@
         },
         {
             title: "반석 위에 지은 집",
+            songs: [
+                {title: "지혜로운 사람", query: "어린이 찬양 지혜로운 사람 반석 위에"},
+                {title: "주의 말씀 듣고서", query: "어린이 찬양 주의 말씀 듣고서"}
+            ],
+            application: "하나님의 말씀을 주일학교에서 듣는 것으로 끝내지 않고, 집이나 학교에서 꼭 한 가지라도 실천해요.",
+            prayer: "\"하나님, 제가 성경 말씀을 듣기만 하고 까먹는 모래 위의 집이 되지 않게 해주세요. 오늘 배운 말씀대로 부모님께 순종하고 동생을 사랑하는 행동을 실천해서, 비바람이 불어도 끄떡없는 튼튼한 반석 위의 집이 되게 해주세요. 예수님의 이름으로 기도합니다. 아멘.\"",
+
             scripture: "마태복음 7장 24~25절",
             verses: [
                 {verse: "24", text: "그러므로 누구든지 나의 이 말을 듣고 행하는 자는 그 집을 반석 위에 지은 지혜로운 사람 같으리니"},
@@ -763,6 +801,19 @@
         });
         document.getElementById('worship-sermon-text').innerHTML = sHtml;
         document.getElementById('worship-sermon-question').innerText = wData.question;
+        
+        // Update Songs
+        if (wData.songs && wData.songs.length >= 2) {
+            document.getElementById('worship-song1-title').innerText = wData.songs[0].title;
+            document.getElementById('worship-song1-link').href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(wData.songs[0].query);
+            
+            document.getElementById('worship-song2-title').innerText = wData.songs[1].title;
+            document.getElementById('worship-song2-link').href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(wData.songs[1].query);
+        }
+        
+        // Update Application and Prayer
+        if (wData.application) document.getElementById('worship-application-text').innerText = wData.application;
+        if (wData.prayer) document.getElementById('worship-prayer-text').innerText = wData.prayer.replace(/"/g, '');
     }
 
 function toggleSection(sectionId) {
