@@ -295,8 +295,14 @@
                   <span id="icon-song1" class="text-teal-600/50 text-xs">악보 보기 ▼</span>
                 </div>
                 <div id="content-song1" class="hidden mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
-                  <div class="bg-white border border-gray-200 rounded-lg p-4 overflow-x-auto">
-                    <pre id="worship-song1-sheet" class="text-sm font-mono text-gray-800 leading-relaxed whitespace-pre"></pre>
+                  <div class="bg-white border border-gray-200 rounded-lg p-4 overflow-x-auto space-y-4">
+                    <div class="w-full flex justify-center bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                      <img id="worship-song1-img" src="" alt="악보" class="max-w-full h-auto max-h-64 object-contain">
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                      <p class="text-xs text-gray-400 font-bold mb-2">코드 가사</p>
+                      <pre id="worship-song1-sheet" class="text-sm font-mono text-gray-800 leading-relaxed whitespace-pre"></pre>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -309,8 +315,14 @@
                   <span id="icon-song2" class="text-teal-600/50 text-xs">악보 보기 ▼</span>
                 </div>
                 <div id="content-song2" class="hidden mt-2 p-3 bg-gray-50 rounded-xl space-y-3">
-                  <div class="bg-white border border-gray-200 rounded-lg p-4 overflow-x-auto">
-                    <pre id="worship-song2-sheet" class="text-sm font-mono text-gray-800 leading-relaxed whitespace-pre"></pre>
+                  <div class="bg-white border border-gray-200 rounded-lg p-4 overflow-x-auto space-y-4">
+                    <div class="w-full flex justify-center bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                      <img id="worship-song2-img" src="" alt="악보" class="max-w-full h-auto max-h-64 object-contain">
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                      <p class="text-xs text-gray-400 font-bold mb-2">코드 가사</p>
+                      <pre id="worship-song2-sheet" class="text-sm font-mono text-gray-800 leading-relaxed whitespace-pre"></pre>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -425,7 +437,7 @@
         {
             title: "작은 것도 나누면 기적이 됩니다",
             songs: [
-                {title: "싹트네 (C코드)", sheet: `[C]
+                {imageUrl: "http://www.akbobada.com/home/akbobada/archive/akbo/img/21963.JPG", title: "싹트네 (C코드)", sheet: `[C]
 싹트네 싹터요 내 마음에 사랑이
 [G]                       [C]
 싹트네 싹터요 내 마음에 사랑이
@@ -433,7 +445,7 @@
 밀려오는 파도처럼 내 마음에 사랑이
 [C]          [G]          [C]
 싹트네 싹터요 내 마음에 사랑이`},
-                {title: "아름다운 마음들이 모여서 (D코드)", sheet: `[D]                    [A]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "아름다운 마음들이 모여서 (D코드)", sheet: `[D]                    [A]
 아름다운 마음들이 모여서 
 [A]                    [D]
 주의 은혜 나누며
@@ -465,7 +477,7 @@
         {
             title: "폭풍 속에서도 안전해요",
             songs: [
-                {title: "예수님이 배에 오르시면 (C코드)", sheet: `[C]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "예수님이 배에 오르시면 (C코드)", sheet: `[C]
 예수님이 배에 오르시면
 [F]          [C]
 바람도 파도도 잔잔해
@@ -473,7 +485,7 @@
 예수님이 배에 오르시면
 [G]          [C]
 우리 마음도 평안해`},
-                {title: "나는 두렵지 않네 (C코드)", sheet: `[C]             [F]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "나는 두렵지 않네 (C코드)", sheet: `[C]             [F]
 나는 두렵지 않네 
 [G]             [C]
 예수님 함께 계시니
@@ -503,7 +515,7 @@
         {
             title: "잃어버린 양을 찾는 목자",
             songs: [
-                {title: "예수께로 가면 (D코드)", sheet: `[D]           [G]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "예수께로 가면 (D코드)", sheet: `[D]           [G]
 예수께로 가면 나는 기뻐요
 [A]           [D]
 나와 같은 아이 부르셨어요
@@ -511,7 +523,7 @@
 예수께로 가면 나는 기뻐요
 [A]           [D]
 나를 안아주시고 사랑하세요`},
-                {title: "목자이신 주님 (G코드)", sheet: `[G]             [C]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "목자이신 주님 (G코드)", sheet: `[G]             [C]
 목자이신 주님 나를 인도하시네
 [D]             [G]
 푸른 풀밭으로 나를 인도하시네
@@ -541,7 +553,7 @@
         {
             title: "삭개오의 마음에 찾아오신 예수님",
             songs: [
-                {title: "삭개오 (C코드)", sheet: `[C]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "삭개오 (C코드)", sheet: `[C]
 삭개오가 뽕나무에 올라갔어요
 [G]
 예수님을 보려고 올라갔어요
@@ -549,7 +561,7 @@
 예수님이 삭개오를 부르셨어요
 [C]       [G]       [C]
 삭개오야 내려오너라`},
-                {title: "예수님이 좋은걸 (C코드)", sheet: `[C]
+                {imageUrl: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTEwMDFfMjE0%2FMDAxNzU5MzA5NDc1NTEw.XiID_7Ti9O_uQupWRKaQFhjQNt5CuCjaHbWDE9xf8_Ig.STd7Gz7kAIRWIBOcZHblzPypjSl5w3LWQc0mTNA5h6cg.JPEG%2F59_1%25BF%25B9%25BC%25F6%25B4%25D4%25C0%25CC_%25C1%25C1%25C0%25BA_%25B0%25C9.jpg", title: "예수님이 좋은걸 (C코드)", sheet: `[C]
 예수님이 좋은걸 어떡합니까
 [G]
 예수님이 좋은걸 어떡합니까
@@ -578,7 +590,7 @@
         {
             title: "돌아온 탕자를 안아주신 아버지",
             songs: [
-                {title: "돈으로도 못가요 (C코드)", sheet: `[C]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "돈으로도 못가요 (C코드)", sheet: `[C]
 돈으로도 못가요 하나님 나라
 [G]
 힘으로도 못가요 하나님 나라
@@ -586,7 +598,7 @@
 거듭나면 가는 나라 하나님 나라
 [C]       [G]       [C]
 믿음으로 가는 나라 하나님 나라`},
-                {title: "예수 사랑하심은 (C코드)", sheet: `[C]          [F]       [C]       [G]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "예수 사랑하심은 (C코드)", sheet: `[C]          [F]       [C]       [G]
 예수 사랑 하심은 거룩하신 말일세
 [C]          [F]       [C]   [G] [C]
 우리들은 약하나 예수 권세 많도다
@@ -614,7 +626,7 @@
         {
             title: "반석 위에 지은 집",
             songs: [
-                {title: "지혜로운 사람 (C코드)", sheet: `[C]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "지혜로운 사람 (C코드)", sheet: `[C]
 지혜로운 사람은 반석 위에 집 짓고
 [G]
 지혜로운 사람은 반석 위에 집 짓고
@@ -622,7 +634,7 @@
 지혜로운 사람은 반석 위에 집 짓고
 [C]       [G]       [C]
 비가 오고 창수가 나네`},
-                {title: "주의 말씀 듣고서 (G코드)", sheet: `[G]
+                {imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Amazing_Grace_sheet_music.svg/1024px-Amazing_Grace_sheet_music.svg.png", title: "주의 말씀 듣고서 (G코드)", sheet: `[G]
 주의 말씀 듣고서 준행하는 자는
 [D]
 반석 위에 터 닦고 집을 지음 같아
@@ -893,9 +905,11 @@
         // Update Songs
         if (wData.songs && wData.songs.length >= 2) {
             document.getElementById('worship-song1-title').innerText = wData.songs[0].title;
+            document.getElementById('worship-song1-img').src = wData.songs[0].imageUrl || 'https://placehold.co/600x400/eeeeee/aaaaaa?text=Sheet+Music';
             document.getElementById('worship-song1-sheet').innerHTML = wData.songs[0].sheet.replace(/\[(.*?)\]/g, '<span class="text-red-500 font-bold">[$1]</span>');
             
             document.getElementById('worship-song2-title').innerText = wData.songs[1].title;
+            document.getElementById('worship-song2-img').src = wData.songs[1].imageUrl || 'https://placehold.co/600x400/eeeeee/aaaaaa?text=Sheet+Music';
             document.getElementById('worship-song2-sheet').innerHTML = wData.songs[1].sheet.replace(/\[(.*?)\]/g, '<span class="text-red-500 font-bold">[$1]</span>');
         }
         
