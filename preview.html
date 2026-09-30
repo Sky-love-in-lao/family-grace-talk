@@ -3784,15 +3784,23 @@ w: 싹 트 네 싹 터 요 내 마 음 에 사 랑 이`,
         document.getElementById('worship-scripture-ref').innerText = wData.scripture;
         let vHtml = '';
         wData.verses.forEach(v => {
-            vHtml += `<p><sup class="text-xs text-blue-400 mr-1">${v.verse}</sup>${v.text}</p>`;
+            if (typeof v === 'string') {
+                vHtml += `<p>${v}</p>`;
+            } else {
+                vHtml += `<p><sup class="text-xs text-blue-400 mr-1">${v.verse}</sup>${v.text}</p>`;
+            }
         });
         document.getElementById('worship-scripture-content').innerHTML = vHtml;
         
         document.getElementById('worship-sermon-title').innerText = "제목: " + wData.title;
         let sHtml = '';
-        wData.sermon.forEach(s => {
-            sHtml += `<p>${s}</p>`;
-        });
+        if (typeof wData.sermon === 'string') {
+            sHtml = wData.sermon;
+        } else {
+            wData.sermon.forEach(s => {
+                sHtml += `<p>${s}</p>`;
+            });
+        }
         document.getElementById('worship-sermon-text').innerHTML = sHtml;
         document.getElementById('worship-sermon-question').innerText = wData.question;
         
@@ -3800,13 +3808,11 @@ w: 싹 트 네 싹 터 요 내 마 음 에 사 랑 이`,
         if (wData.songs && wData.songs.length >= 2) {
             document.getElementById('worship-song1-title').innerText = wData.songs[0].title;
             document.getElementById('worship-song1-sheet').innerHTML = wData.songs[0].sheet.replace(/\[(.*?)\]/g, '<span class="text-red-500 font-bold">[$1]</span>');
-            document.getElementById('worship-song1-img').src = wData.songs[0].imageUrl || 'https://placehold.co/600x400/f8f9fa/a0aec0?text=Sheet+Music+Image+Required'; });
-            }
+            document.getElementById('worship-song1-img').src = wData.songs[0].imageUrl || 'https://placehold.co/600x400/f8f9fa/a0aec0?text=Sheet+Music+Image+Required';
             
             document.getElementById('worship-song2-title').innerText = wData.songs[1].title;
             document.getElementById('worship-song2-sheet').innerHTML = wData.songs[1].sheet.replace(/\[(.*?)\]/g, '<span class="text-red-500 font-bold">[$1]</span>');
-            document.getElementById('worship-song2-img').src = wData.songs[1].imageUrl || 'https://placehold.co/600x400/f8f9fa/a0aec0?text=Sheet+Music+Image+Required'; });
-            }
+            document.getElementById('worship-song2-img').src = wData.songs[1].imageUrl || 'https://placehold.co/600x400/f8f9fa/a0aec0?text=Sheet+Music+Image+Required';
         }
         
         // Update Application and Prayer
